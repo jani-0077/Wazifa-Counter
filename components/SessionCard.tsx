@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import { Image, Trash2, Clock } from 'lucide-react-native';
+import { Trash2, Clock } from 'lucide-react-native';
 import { SessionSummary } from '@/types/session';
 
 const { width } = Dimensions.get('window');
@@ -24,14 +24,12 @@ export default function SessionCard({ session, onPress, onDelete }: SessionCardP
           <Text style={styles.sessionName} numberOfLines={1}>
             {session.name}
           </Text>
-          {session.hasImage && (
-            <Image size={16} color="#10b981" style={styles.imageIcon} />
-          )}
         </View>
         <TouchableOpacity 
           style={styles.deleteButton} 
           onPress={(e) => {
             e.stopPropagation();
+            e.preventDefault();
             onDelete();
           }}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
@@ -86,13 +84,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#1f2937',
-    flex: 1,
-  },
-  imageIcon: {
-    marginLeft: 8,
   },
   deleteButton: {
     padding: 4,
+    marginLeft: 8,
   },
   countContainer: {
     backgroundColor: '#f9fafb',
